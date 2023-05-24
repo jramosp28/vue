@@ -1,8 +1,13 @@
 <template>
     <div class="auth">
         <template v-if="!isLoggedIn">
-            <a href="#" class="nav-link">Register</a>
-            <a href="#" class="nav-link">Sign in</a>
+            <div class="nav-link dropdown">
+                <i class="fas fa-user fa-xl"></i>
+                <div class="dropdown-content">
+                    <a href="#" class="nav-link" @click="handleSignInClick">Sign in</a>
+                    <a href="#" class="nav-link" @click="handleRegisterClick">Register</a>
+                </div>
+            </div>
         </template>
         <template v-else>
             <span class="nav-link">{{ getUsername() }}</span>
@@ -11,7 +16,6 @@
 </template>
   
 <script>
-
 export default {
     name: 'Auth',
     data() {
@@ -25,6 +29,12 @@ export default {
             // Lógica para mostrar solo el usuario del email sin el "@" y lo que sigue
             const atIndex = this.username.indexOf('@');
             return this.username.slice(0, atIndex);
+        },
+        handleRegisterClick() {
+            this.$emit('auth-action', 'register'); // Emitir evento con acción "register"
+        },
+        handleSignInClick() {
+            this.$emit('auth-action', 'signin'); // Emitir evento con acción "signin"
         },
     },
 };

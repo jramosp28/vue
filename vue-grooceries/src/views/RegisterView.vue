@@ -8,28 +8,15 @@
         <form @submit.prevent="register">
           <div class="form-group">
             <label class="form-label" for="username">E-mail</label>
-            <input
-              placeholder="E-mail"
-              type="email"
-              id="email"
-              class="form-control"
-              v-model="email"
-            />
+            <input placeholder="E-mail" type="email" id="email" class="form-control" v-model="email" />
           </div>
           <div class="form-group">
             <label class="form-label" for="password">Password</label>
-            <input
-              placeholder="Password"
-              type="password"
-              id="password"
-              class="form-control"
-              v-model="password"
-            />
+            <input placeholder="Password" type="password" id="password" class="form-control" v-model="password" />
           </div>
           <button type="submit" class="btn btn-primary btn-lg mt-3">
             Register
           </button>
-
         </form>
 
         <p class="auth-bottom">
@@ -37,7 +24,7 @@
           <router-link to="/login" class="alink">Sign in</router-link>
         </p>
 
-        <p v-if="error" class="auth-error">{{ error }}</p>
+        <p v-if="error" class="auth-error error-message">{{ getErrorMessage(error) }}</p>
       </div>
     </section>
   </main>
@@ -45,6 +32,8 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import router from '../router';
+
 
 export default {
   name: "RegisterView",
@@ -52,7 +41,7 @@ export default {
     return {
       email: "",
       password: "",
-      error: ""
+      error: "",
     };
   },
   methods: {
@@ -63,13 +52,26 @@ export default {
           const user = userCredential.user;
           console.log("New user created with email:", user.email);
           // Realizar la redirección a la página de inicio aquí
+          router.push("/login");
         })
         .catch((error) => {
-          this.error = error.message;
+          this.error = error;
           console.error(error);
         });
-    }
-  }
+    },
+    getErrorMessage(error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          return "Invalid email address.";
+        case "auth/email-already-in-use":
+          return "The email address is already in use by another account.";
+        case "auth/weak-password":
+          return "The password is too weak.";
+        default:
+          return "An error occurred during registration. Please try again.";
+      }
+    },
+  },
 };
 </script>
 

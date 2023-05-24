@@ -1,7 +1,6 @@
 <template>
   <main class="page-login container main-body">
     <section class="box-auth">
-
       <div class="box-auth__form">
         <h1 class="main-title">Sign in</h1>
         <p class="auth-intro">Log in to your account.</p>
@@ -18,15 +17,14 @@
           <button v-on:click="login" class="btn btn-primary btn-lg mt-3">
             Sign in
           </button>
-
         </form>
 
-        <p class="auth-bottom">
+        <p class="auth-bottom error-message">
           Not a member?
           <router-link to="/register" class="alink">Register</router-link>
         </p>
 
-        <p v-if="error" class="auth-error">{{ error }}</p>
+        <p v-if="error" class="auth-error">{{ getErrorMessage(error) }}</p>
       </div>
     </section>
   </main>
@@ -34,30 +32,45 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 export default {
   name: "LoginView",
   data() {
     return {
       email: "",
       password: "",
-      error: ""
+      error: "",
     };
   },
   methods: {
     login() {
+      console.log("Starting login process...");
       const auth = getAuth();
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("User logged in correctly with the email:", user.email);
-          // Realizar la redirección a la página de inicio aquí
+          console.log("User logged in correctly with the email:", userCredential.user.email);
+          router.push('/');
         })
         .catch((error) => {
-          this.error = error.message;
-          console.error(error);
+          console.error("Login error:", error);
+          this.error = error;
         });
     }
-  }
+    ,
+    getErrorMessage(error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          return "Invalid email address.";
+        case "auth/user-disabled":
+          return "Your account has been disabled.";
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+          return "Invalid email or password.";
+        default:
+          return "An error occurred during login. Please try again.";
+      }
+    },
+  },
 };
 </script>
 

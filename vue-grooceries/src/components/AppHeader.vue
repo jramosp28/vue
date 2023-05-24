@@ -19,7 +19,7 @@
             <a href="" aria-label="Cart" class="nav-link"><i class="fas fa-cart-shopping fa-xl"></i></a>
           </div>
           <div class="user-options__item">
-            <Auth />
+            <Auth @auth-action="handleAuthAction" />
           </div>
         </div>
       </div>
@@ -58,19 +58,30 @@
     </nav>
   </header>
 </template>
-  
+
 <script>
 import Auth from './Auth.vue';
-
 
 export default {
   name: 'AppHeader',
   components: {
     Auth,
-  }
-}
+  },
+  methods: {
+    handleAuthAction(action) {
+      // Manejar la acción del componente Auth
+      if (action === 'register') {
+        // Realizar la lógica de redirección a la página de registro
+        this.$router.push('/register');
+      } else if (action === 'signin') {
+        // Realizar la lógica de redirección a la página de inicio de sesión
+        this.$router.push('/login');
+      }
+    },
+  },
+};
 </script>
-  
+
 <style scoped>
 @import '../css/styles.css';
 </style>
