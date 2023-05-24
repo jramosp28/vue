@@ -514,7 +514,7 @@ h1, h2, h3, h4, h5, h6 {
 .categories-products-grid__category {
     width: 100%;
     height: 60px;
-    background-color: var(--neutral-light-color);
+    background-color: #85a2b7 !important;
     color: var(--neutral-color);
     box-shadow: var(--box-shadow-light);
     display: flex;
@@ -525,11 +525,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .categories-products-grid__category:hover {
-    color: var(--accent-color);
+    color:white;
 }
 
 .categories-products-grid__category.active{
-    background-color: var(--accent-color) !important;
+    background-color: #444a4c !important;
 }
 
 /* Featured banner */
@@ -619,7 +619,94 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+.not-found-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  .not-found-view__title {
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .not-found-view__message {
+    font-size: 1.5rem;
+    color: #555;
+  }
 
-
-
-
+  .product-view {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .product-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .product-details {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .product-info {
+    margin-right: 40px;
+    text-align: left;
+  }
+  
+  .product-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .product-info p {
+    margin-bottom: 5px;
+  }
+  
+  .product-details-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .product-details-row p {
+    flex: 0 0 50%;
+  }
+  
+  .product-images {
+    width: 400px;
+    text-align: center;
+  }
+  
+  .main-image {
+    margin-bottom: 10px;
+  }
+  
+  .main-image img {
+    max-width: 100%;
+    max-height: 300px;
+  }
+  
+  .thumbnail-images {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .thumbnail-images img {
+    width: 60px;
+    height: auto;
+    margin: 5px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .thumbnail-images img.active {
+    opacity: 1;
+  }

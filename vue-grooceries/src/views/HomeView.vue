@@ -2,7 +2,7 @@
   <main class="main-body">
     <Carousel />
     <Offerts />
-    <Products :products="products" :categories="categories" />
+    <Products :categories="categories" :products="products" />
     <Newsletter />
   </main>
 </template>
@@ -20,7 +20,7 @@ export default {
   components: {
     Carousel,
     Offerts,
-    Products, 
+    Products,
     Newsletter
   },
   data() {
@@ -34,9 +34,6 @@ export default {
     this.products = productsData;
     console.log('Categories:', this.categories);
     console.log('Products:', this.products);
-  },
-  methods: {
-
   }
 }
 </script>

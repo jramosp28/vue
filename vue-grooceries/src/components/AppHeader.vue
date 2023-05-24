@@ -1,5 +1,5 @@
 <template>
-<header class="main-header">
+  <header class="main-header">
     <nav class="navbar navbar-light navbar-header">
       <div class="container">
         <div class="logo">
@@ -19,7 +19,7 @@
             <a href="" aria-label="Cart" class="nav-link"><i class="fas fa-cart-shopping fa-xl"></i></a>
           </div>
           <div class="user-options__item">
-            <a href="" aria-label="User" class="nav-link"><i class="fas fa-user fa-xl"></i></a>
+            <Auth />
           </div>
         </div>
       </div>
@@ -60,12 +60,13 @@
 </template>
   
 <script>
+import Auth from './Auth.vue';
 
 
 export default {
-    name: 'AppHeader',
-    components: {
-
+  name: 'AppHeader',
+  components: {
+    Auth,
   }
 }
 </script>

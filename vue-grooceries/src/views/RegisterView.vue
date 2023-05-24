@@ -36,6 +36,8 @@
           Already have an account?
           <router-link to="/login" class="alink">Sign in</router-link>
         </p>
+
+        <p v-if="error" class="auth-error">{{ error }}</p>
       </div>
     </section>
   </main>
@@ -46,22 +48,31 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default {
   name: "RegisterView",
-  data: function () {
+  data() {
     return {
-
+      email: "",
+      password: "",
+      error: ""
     };
   },
   methods: {
-    register: function (e) {
+    register() {
       const auth = getAuth();
-      createUserWithEmailAndPassword()
-      e.preventDefault();
-    },
-  },
+      createUserWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("New user created with email:", user.email);
+          // Realizar la redirección a la página de inicio aquí
+        })
+        .catch((error) => {
+          this.error = error.message;
+          console.error(error);
+        });
+    }
+  }
 };
 </script>
-<style lang="scss" scoped>
-.container {
-  max-width: 500px;
-}
+
+<style scoped>
+@import '../css/styles.css';
 </style>

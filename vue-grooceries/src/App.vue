@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppHeader />
-    <HomeView />
+    <router-view></router-view>
     <AppFooter />
   </div>
 </template>
